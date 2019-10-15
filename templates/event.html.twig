@@ -1,0 +1,18 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block content %}
+    {% if event is not empty %}
+        <h2>{{event.name}} de {{baby.firstName}} {{baby.lastName}}</h2>
+        <p>Le {{event.date|date('d-m-Y')}} à {{event.place}}</p>
+        <p><a href="">Supprimer l'évènement</a></p>
+        <p><a href="{{path('upload_photo_event', {'idBaby': baby.id, 'idEvent': event.id})}}">Ajouter des photos de l'évènement</a></p>
+            <div class='list-group gallery'>
+            {% for photo in photos %}
+                <div class="col-sm-2">
+                    <a class="thumbnail fancybox" data-fancybox="images" href="{{ vich_uploader_asset(photo, 'imageFile')| imagine_filter('my_widen_filter') }}">
+                        <img class="img-responsive" src="{{ vich_uploader_asset(photo, 'imageFile')| imagine_filter('my_thumb') }}"/>
+                    </a>
+                </div>
+            {%endfor%}
+            </div>
+    {% endif %}
+{% endblock %}

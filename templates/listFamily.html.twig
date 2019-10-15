@@ -1,0 +1,17 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block content %}
+     <h2>La famille</h2>
+    {% if familyMembers is not empty %}
+        <div class="list-group">
+            {% for familyMember in familyMembers %}
+                <a href="{{ path('family_member', {'idBaby': baby.id, 'idFamilyMember': familyMember.id}) }}" class="list-group-item">
+                  <h4 class="list-group-item-heading">{{familyMember.lastname}} {{familyMember.firstname}} - Voir ce membre de la famille</h4>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Aucun membre de la famille n'a encore été ajouté.</p>
+        <a class="btn btn-link" href="{{path('create_event', {'idBaby': baby.id}) }}">Ajouter un membre de la famille >></a>
+    {% endif %}
+    
+{% endblock %}

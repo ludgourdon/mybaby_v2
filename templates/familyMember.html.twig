@@ -1,0 +1,27 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block content %}
+    {% if familyMember is not empty %}
+        <div class="row">
+            <div class="col-sm-4">
+                {% if familyMember.photos|length > 0 %}
+                    <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(familyMember.photos|first, 'imageFile')| imagine_filter('my_widen_filter') }}"/>
+                {% else %}    
+                    <img src="/mybaby/web/uploads/images/photos/shutterstock_464300804-776x600.jpg" />
+                {% endif %}
+            </div>
+            <div class="col-sm-4">
+                {% set role = 'Parent' %} 
+                {% if familyMember.role == 'Maman' %}
+                {% set role = 'Maman' %} 
+                {% elseif familyMember.role == 'Papa' %}
+                {% set role = 'Papa' %} 
+                {% endif %}
+                <h2>{{ role }}</h2>
+                <p>{{familyMember.lastname}} {{familyMember.firstname}}</p>
+                <p>{{ role }} est né le {{ familyMember.birthDate|date('d-m-Y') }}</p>
+            </div>
+        </div>
+        <a class="btn btn-link btn-sm" href="{{ path('edit_family', {'idBaby': idBaby, 'idFamily': familyMember.id})}}" role="button">Modifier le profil »</a>
+    {% endif %}
+{#    <a class="btn btn-link btn-sm" href="{{ path('new_parent') }}" role="button">Créer un membre de la famille »</a>#}
+{% endblock %}

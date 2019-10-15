@@ -1,0 +1,7 @@
+172.19.0.1 - - [15/Oct/2019:18:57:01 +0000] "GET / HTTP/1.1" 404 27 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
+172.19.0.1 - - [15/Oct/2019:18:57:01 +0000] "GET /favicon.ico HTTP/1.1" 404 27 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
+172.19.0.1 - - [15/Oct/2019:18:57:02 +0000] "GET / HTTP/1.1" 404 27 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
+172.19.0.1 - - [15/Oct/2019:18:57:17 +0000] "GET /index.php HTTP/1.1" 404 27 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
+172.18.0.1 - - [15/Oct/2019:18:59:50 +0000] "GET / HTTP/1.1" 404 54103 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
+172.18.0.1 - - [15/Oct/2019:18:59:54 +0000] "GET /_wdt/85ea2a HTTP/1.1" 200 14962 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
+172.18.0.1 - - [15/Oct/2019:19:01:25 +0000] "GET /_profiler/85ea2a?panel=logger HTTP/1.1" 200 374370 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"

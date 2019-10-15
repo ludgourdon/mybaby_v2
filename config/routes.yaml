@@ -1,3 +1,34 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+mybaby_main:
+  controller: App\Controller\MainController.php
+  path:   /
+
+app:
+  path: /
+  controller:  App\Controller\MainController.php
+
+mybaby_baby:
+  controller: App\Controller\BabyController.php
+  path: /baby
+
+mybaby_event:
+  controller: App\Controller\EventController.php
+  path: /baby/{idBaby}/event
+
+mybaby_photo:
+  controller: App\Controller\PhotoController.php
+  path: /baby/{idBaby}/photos
+
+mybaby_family:
+  controller: App\Controller\FamilyController.php
+  path:   /baby/{idBaby}/family
+
+#_liip_imagine:
+#  controller: @LiipImagineBundle/controllers/config/routing.yaml
+
+mybaby_sentence:
+  controller: App\Controller\SentenceController.php
+  path:   /baby/{idBaby}/sentence

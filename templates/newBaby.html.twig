@@ -1,0 +1,28 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block content %}
+    <div class="col-sm-6">
+        <h2>Mon bébé</h2>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+    <div class="col-sm-6">
+        {% if baby.id is not empty %}
+            {% if baby.photos|length > 0 %}
+                <div class ="row">
+                {% for photo in baby.photos %}
+                    {% if photo.profilePicture == true %} 
+                        <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(photo, 'imageFile')| imagine_filter('my_widen_filter') }}"/>
+                    {% else %}
+                        <div class="col-sm-6">
+                            <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(photo, 'imageFile')| imagine_filter('my_thumb') }}"/>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                </div>           
+            {% endif %}
+             {% include 'MybabyMainBundle:Default:uploadPhotoBaby.html.twig' %}
+        {% endif %}
+    </div>
+    <script src="{{ asset('build/app.js') }}"></script>
+{% endblock %}

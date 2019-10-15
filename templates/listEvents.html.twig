@@ -1,0 +1,17 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block content %}
+     <h2>Les évènements</h2>
+    {% if events is not empty %}
+        <div class="list-group">
+            {% for event in events %}
+                <a href="{{ path('event', {'idBaby': baby.id, 'idEvent': event.id}) }}" class="list-group-item">
+                  <h4 class="list-group-item-heading">{{event.name}} - Voir cet évènement</h4>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Aucun évènement n'a été encore créé.</p>
+        <a class="btn btn-link" href="{{path('create_event', {'idBaby': baby.id}) }}">Créer un évènement >></a>
+    {% endif %}
+    
+{% endblock %}

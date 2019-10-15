@@ -1,0 +1,17 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block content %}
+     <h2>Mes bébés</h2>
+     <p>Choisir un bébé</p>
+    {% if babies is not empty %}
+        <div class="list-group">
+            {% for baby in babies %}
+                <a href="{{ path('baby', {'idBaby': baby.id}) }}" class="list-group-item">
+                  <h4 class="list-group-item-heading">{{baby.lastName}} {{baby.firstName}}</h4>
+                  <p class="list-group-item-text">bébé chou</p>
+                </a>
+            {% endfor %}
+        </div>
+        <a class="btn btn-link btn-sm" href="{{ path('new_baby') }}" role="button">Créer un bébé »</a>
+    {% endif %}
+    
+{% endblock %}

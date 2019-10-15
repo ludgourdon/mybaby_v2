@@ -1,0 +1,16 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block content %}
+    <div class="col-sm-6">
+    <h2>Créer un parent</h2>
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+    <div class="col-sm-4">
+        {% if family.photos|length > 0 %}
+            <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(family.photos|first, 'imageFile')| imagine_filter('my_widen_filter') }}"/>
+        {% else %}    
+            {% include 'MybabyMainBundle:Default:uploadPhotoFamily.html.twig' %}
+        {% endif %}
+    </div>
+{% endblock %}
