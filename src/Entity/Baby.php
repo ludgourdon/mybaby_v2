@@ -3,12 +3,14 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BabyRepository")
  * @ORM\Table(name="baby")
+ * @UniqueEntity(fields={"lastName", "firstName", "user"}, message="Bébé est déjà enregistré")
  */
 class Baby
 {
@@ -21,13 +23,13 @@ class Baby
     
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=50, nullable=false)
+     * @ORM\Column(type="string", length=50, nullable=false, unique=true)
      */
     private $lastName;
     
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=50, nullable=false)
+     * @ORM\Column(type="string", length=50, nullable=false, unique=true)
      */
     private $firstName;
     
@@ -93,7 +95,7 @@ class Baby
     
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="babies", fetch="EAGER")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", unique=true)
      */
     private $user;
     

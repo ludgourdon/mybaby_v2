@@ -1,12 +1,70 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}mybaby{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('build/global.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/nav.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/dropzone-stylesheet.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/fancybox-stylesheet.css') }}">
+</head>
+<body>
+<div class="container">
+<nav class="navbar navbar-light bg-light">
+    <a id="website-title" class="navbar-brand" href="{{ path('index')}}">
+        mybaby
+    </a>
+</nav>
+</div>
+{#<nav class="navbar navbar-default navbar-fixed-top">#}
+{#    <div class="container">#}
+{#        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">#}
+{#            <ul class="nav navbar-nav navbar-left">#}
+{#                <li><a id="website-title" href="{{ path('index')}}">mybaby</a></li>#}
+{#            </ul>#}
+{#            <ul class="nav navbar-nav navbar-right">#}
+{#                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+{#                    <li class="dropdown">#}
+{#                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.username }} <span class="caret"></span></a>#}
+{#                        <ul class="dropdown-menu">#}
+{#                            <li role="separator" class="divider"></li>#}
+{#                            <li><a href="{{ path('app_logout') }}">#}
+{#                                    Logout#}
+{#                                </a></li>#}
+{#                        </ul>#}
+{#                    </li>#}
+{#                {% else %}#}
+{#                    <li><a href="{{ path('app_login') }}">Login</a></li>#}
+{#                {% endif %}#}
+{#            </ul>#}
+{#        </div>#}
+{#    </div>#}
+{#</nav>#}
+<div class="container" role="main">
+    <div class="row">
+        {% block name %}
+        {% endblock name %}
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-{{ type }} alert-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% block content %}
+    {% endblock content %}
+</div>
+{% block javascripts %}{% endblock %}
+<script src="{{ asset('build/app.js') }}"></script>
+{#            <script src="https://use.fontawesome.com/9bec28fac9.js"></script>#}
+<script src="{{ asset('build/dropzone.js') }}"></script>
+<script src="{{ asset('build/fancybox.js') }}"></script>
+{#            <script src="{{ asset('build/test.js') }}"></script>#}
+</body>
 </html>

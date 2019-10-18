@@ -1,10 +1,10 @@
 <?php
 namespace App\Manager;
 
+use App\Entity\User;
 use App\Manager\BaseManager;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Baby;
-use App\Entity\User;
 
 class BabyManager extends BaseManager
 {

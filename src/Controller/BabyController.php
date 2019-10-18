@@ -49,7 +49,7 @@ class BabyController extends AbstractController
      *
      * @return Response|RedirectResponse
      */
-    public function newBabyAction(Request $request)
+    public function newBabyAction(Request $request, BabyManager $babyManager)
     {
         $user = $this->getUser();
 
@@ -64,7 +64,6 @@ class BabyController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $baby = $form->getData();
             $baby->setUser($this->getUser());
-            $babyManager = $this->get('mybaby_main.babymanager');
             $babyManager->save($baby);
 
             return $this->redirectToRoute('index');

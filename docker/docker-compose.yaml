@@ -36,14 +36,12 @@ services:
       - php
     volumes:
       - ./logs/nginx/:/var/log/nginx:cached
-#  encore:
-#    image: node:10-alpine
-#    volumes:
-#      -  ../:/var/www/symfony
-#    ports:
-#      - "8080:80"
-#    working_dir: /var/www/symfony
-#    command: ["yarn", "dev-server", "--host=0.0.0.0"]
+  encore:
+    container_name: encore
+    build:
+      context: ./frontend
+    volumes:
+       - ./:/var/www/html
 volumes:
   postgres-data-volume:
     external: true

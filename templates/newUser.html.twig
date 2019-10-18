@@ -1,4 +1,4 @@
-
+{% extends'base.html.twig' %}
 {% block content %}
     <div class="jumbotron">
         <p>
@@ -19,5 +19,5 @@
         </i>
     </div>
     <a class="btn btn-primary btn-lg" href="#" role="button">Créer un compte »</a>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Se connecter »</a>
+    <a class="btn btn-primary btn-lg" href="{{ path('app_login') }}" role="button">Se connecter »</a>
 {% endblock %}

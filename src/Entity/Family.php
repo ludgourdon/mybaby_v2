@@ -88,7 +88,7 @@ class Family
      *
      * @param string $lastname
      *
-     * @return Parents
+     * @return Family
      */
     public function setLastname($lastname)
     {
@@ -112,7 +112,7 @@ class Family
      *
      * @param string $firstname
      *
-     * @return Parents
+     * @return Family
      */
     public function setFirstname($firstname)
     {
@@ -136,7 +136,7 @@ class Family
      *
      * @param \DateTime $birthdate
      *
-     * @return Parents
+     * @return Family
      */
     public function setBirthdate($birthdate)
     {
@@ -160,7 +160,7 @@ class Family
      *
      * @param string $birthplace
      *
-     * @return Parents
+     * @return Family
      */
     public function setBirthplace($birthplace)
     {
@@ -184,7 +184,7 @@ class Family
      *
      * @param string $role
      *
-     * @return Parents
+     * @return Family
      */
     public function setRole($role)
     {
@@ -208,7 +208,7 @@ class Family
      *
      * @param User $user
      *
-     * @return Parents
+     * @return Family
      */
     public function setUser(User $user = null)
     {
@@ -240,7 +240,7 @@ class Family
      *
      * @param Baby $baby
      *
-     * @return Parents
+     * @return Family
      */
     public function addBaby(Baby $baby)
     {
