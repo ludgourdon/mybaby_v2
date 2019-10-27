@@ -23,13 +23,13 @@ class Baby
     
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=50, nullable=false, unique=true)
+     * @ORM\Column(type="string", length=50, nullable=false)
      */
     private $lastName;
     
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=50, nullable=false, unique=true)
+     * @ORM\Column(type="string", length=50, nullable=false)
      */
     private $firstName;
     
@@ -37,36 +37,11 @@ class Baby
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $nickName;
-    
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $birthDate;
-    
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $birthPlace;
-    
+
     /**
      * @ORM\Column(type="string", length=1, nullable=true)
      */
     private $sex;
-    
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $birthHour;
-    
-    /**
-     * @ORM\Column(type="decimal", precision=3, scale=2, nullable=true)
-     */
-    private $birthHeight;
-    
-    /**
-     * @ORM\Column(type="decimal", precision=4, scale=3, nullable=true)
-     */
-    private $birthWeight;
     
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -95,7 +70,7 @@ class Baby
     
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="babies", fetch="EAGER")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", unique=true)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
     
@@ -123,6 +98,12 @@ class Baby
      * @ORM\OneToMany(targetEntity="Photo", mappedBy="baby")
      */
     private $photos;
+
+    /**
+     * One birth is for has One baby.
+     * @ORM\OneToOne(targetEntity="Birth", mappedBy="baby")
+     */
+    private $birth;
     
     /**
      * Constructor
@@ -194,54 +175,6 @@ class Baby
     }
 
     /**
-     * Set birthDate
-     *
-     * @param \DateTime $birthDate
-     *
-     * @return Baby
-     */
-    public function setBirthDate($birthDate)
-    {
-        $this->birthDate = $birthDate;
-
-        return $this;
-    }
-
-    /**
-     * Get birthDate
-     *
-     * @return \DateTime
-     */
-    public function getBirthDate()
-    {
-        return $this->birthDate;
-    }
-
-    /**
-     * Set birthPlace
-     *
-     * @param string $birthPlace
-     *
-     * @return Baby
-     */
-    public function setBirthPlace($birthPlace)
-    {
-        $this->birthPlace = $birthPlace;
-
-        return $this;
-    }
-
-    /**
-     * Get birthPlace
-     *
-     * @return string
-     */
-    public function getBirthPlace()
-    {
-        return $this->birthPlace;
-    }
-
-    /**
      * Set sex
      *
      * @param string $sex
@@ -277,64 +210,6 @@ class Baby
         $this->birthHour = $birthHour;
 
         return $this;
-    }
-
-    /**
-     * Get birthHour
-     *
-     * @return \DateTime
-     */
-    public function getBirthHour()
-    {
-        return $this->birthHour;
-    }
-
-    /**
-     * Set birthHeight
-     *
-     * @param string $birthHeight
-     *
-     * @return Baby
-     */
-    public function setBirthHeight($birthHeight)
-    {
-        $this->birthHeight = $birthHeight;
-
-        return $this;
-    }
-
-    /**
-     * Get birthHeight
-     *
-     * @return string
-     */
-    public function getBirthHeight()
-    {
-        return $this->birthHeight;
-    }
-
-    /**
-     * Set birthWeight
-     *
-     * @param string $birthWeight
-     *
-     * @return Baby
-     */
-    public function setBirthWeight($birthWeight)
-    {
-        $this->birthWeight = $birthWeight;
-
-        return $this;
-    }
-
-    /**
-     * Get birthWeight
-     *
-     * @return string
-     */
-    public function getBirthWeight()
-    {
-        return $this->birthWeight;
     }
 
     /**
@@ -639,5 +514,23 @@ class Baby
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+    public function getBirth(): ?Birth
+    {
+        return $this->birth;
+    }
+
+    public function setBirth(?Birth $birth): self
+    {
+        $this->birth = $birth;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newBaby = $birth === null ? null : $this;
+        if ($newBaby !== $birth->getBaby()) {
+            $birth->setBaby($newBaby);
+        }
+
+        return $this;
     }
 }

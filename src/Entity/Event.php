@@ -3,9 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Photo;
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Entity\Baby;
 use Doctrine\Common\Collections\Collection;
 
 /**
@@ -56,6 +54,13 @@ class Event
      * @ORM\OneToMany(targetEntity="Photo", mappedBy="event")
      */
     private $photos;
+
+    /**
+     * One event concern one birth
+     *
+     * @ORM\OneToOne(targetEntity="Birth", mappedBy="event")
+     */
+    private $birth;
     
     /**
      * Get id
@@ -202,5 +207,23 @@ class Event
     public function getPlace()
     {
         return $this->place;
+    }
+
+    public function getBirth(): ?Birth
+    {
+        return $this->birth;
+    }
+
+    public function setBirth(?Birth $birth): self
+    {
+        $this->birth = $birth;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newEvent = $birth === null ? null : $this;
+        if ($newEvent !== $birth->getEvent()) {
+            $birth->setEvent($newEvent);
+        }
+
+        return $this;
     }
 }

@@ -2,6 +2,10 @@ version: '2'
 services:
   postgres:
     image: postgres
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=mybaby
     ports:
       - '5433:5432'
     volumes:
@@ -19,13 +23,15 @@ services:
       - postgres
   php:
     build: php-fpm
-    ports:
-      - '9002:9000'
+    expose:
+      - "9000"
+      - "9002"
     volumes:
       - ../:/var/www/symfony:cached
       - ./logs/symfony:/var/www/symfony/var/logs:cached
     links:
       - postgres
+    env_file: ../.env
   nginx:
     build: nginx
     ports:

@@ -9,6 +9,13 @@ RUN apt-get install -y zlib1g-dev libpq-dev git libicu-dev libxml2-dev \
     && docker-php-ext-install pdo pdo_pgsql pgsql \
     && docker-php-ext-install zip xml
 
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+COPY xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "\rxdebug.remote_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
 
 # Set timezone

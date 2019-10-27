@@ -15,7 +15,7 @@
                         <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(baby.photos|first, 'imageFile')| imagine_filter('my_widen_filter') }}"/>
                     {% endif %}
                     {% else %}    
-                    <img src="/mybaby/web/uploads/images/photos/shutterstock_464300804-776x600.jpg" />
+                    <img src="{{ asset('build/images/baby.jpg') }}" alt="My baby"/>
                 {% endif %}
             </div>
             <div class="col-sm-4">
@@ -24,10 +24,6 @@
                     "{{baby.nickName}}"
                     {%endif%}
                     {{baby.lastname}}</p>
-                <p>Naissance :</p>
-                <p>né le {{baby.birthDate|date('d-m-Y')}} à {{baby.birthPlace}}</p>
-                <p>mesure {{baby.birthHeight}}</p>
-                <p>pèse {{baby.birthWeight}}</p>
             </div>
         </div>
         <a class="btn btn-link btn-sm" href="{{ path('edit_baby', {'idBaby': baby.id})}}" role="button">Modifier le profil »</a>

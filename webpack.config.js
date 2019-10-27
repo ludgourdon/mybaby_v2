@@ -1,4 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -65,7 +66,7 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
-
+    .enableVueLoader()
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
@@ -78,6 +79,9 @@ Encore
     .addStyleEntry('dropzone-stylesheet', './assets/css/dropzone.min.css')
     .addStyleEntry('fancybox-stylesheet', './assets/css/jquery.fancybox.min.css')
     .addStyleEntry('nav', './assets/css/nav.css')
+    .addPlugin(new CopyWebpackPlugin([
+        { from: './assets/images', to: 'images' }
+    ]))
 ;
 
 module.exports = Encore.getWebpackConfig();

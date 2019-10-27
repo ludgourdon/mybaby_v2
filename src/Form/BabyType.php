@@ -28,13 +28,6 @@ class BabyType extends AbstractType
                 'label' => 'Surnom',
                 'required'   => true,
             ))
-            ->add('birthDate', DateType::class, array(
-                'label' => 'Date de naissance',
-                'required' => true,
-            ))
-            ->add('birthPlace', TextType::class, array(
-                'label' => 'Lieu de naissance',
-            ))
             ->add('sex', ChoiceType::class, array(
                 'label' => 'Sexe',
                 'choices' => array(
@@ -43,12 +36,6 @@ class BabyType extends AbstractType
                     )
                 )
             )
-            ->add('birthWeight', NumberType::class, array(
-                'label' => 'Poids de naissance',
-            ))
-             ->add('birthHeight', NumberType::class, array(
-                'label' => 'Taille de naissance',
-            ))
             ->add('save', SubmitType::class, array('label' => 'Continuer'))
             ->getForm();
     }

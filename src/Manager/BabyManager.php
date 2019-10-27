@@ -2,7 +2,6 @@
 namespace App\Manager;
 
 use App\Entity\User;
-use App\Manager\BaseManager;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Baby;
 
@@ -17,7 +16,7 @@ class BabyManager extends BaseManager
 
     public function getRepository()
     {
-        return $this->em->getRepository('MybabyMainBundle:Baby');
+        return $this->em->getRepository(Baby::class);
     }
     
     public function save(Baby $baby)
@@ -43,10 +42,6 @@ class BabyManager extends BaseManager
     
     public function hasAccessBaby($idBaby, User $user)
     {
-        if ($user->isSuperAdmin()) {
-            return true;
-        }
-        
         return $this->getRepository()->findBy(array('id' => $idBaby, 'user' => $user));
     }
 }

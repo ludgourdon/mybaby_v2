@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BabyController extends AbstractController
 {
     /**
-     * @Route("/{idBaby}", name="baby", requirements={"idBaby": "\d+"})
+     * @Route("/baby/{idBaby}", name="baby", requirements={"idBaby": "\d+"})
      *
      * @param int $idBaby
      *
@@ -30,10 +30,10 @@ class BabyController extends AbstractController
         $user = $this->getUser();
 
         if ($user === null) {
-            return $this->redirectToRoute('fos_user_security_login');
+            return $this->redirectToRoute('app_login');
         }
 
-        if (!$babyManager->hasAccessBaby($idBaby, $user)) {
+        if (!$babyManager->hasAccessBaby($idBaby, $user) && !$this->isGranted('ROLE_ADMIN')) {
             throw new Exception('Accès interdit.');
         }
 
@@ -43,7 +43,7 @@ class BabyController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="new_baby")
+     * @Route("/baby/new", name="new_baby")
      *
      * @param Request $request
      *
@@ -54,7 +54,7 @@ class BabyController extends AbstractController
         $user = $this->getUser();
 
         if ($user === null) {
-            return $this->redirectToRoute('fos_user_security_login');
+            return $this->redirectToRoute('app_login');
         }
 
         $baby = new Baby();
@@ -66,7 +66,7 @@ class BabyController extends AbstractController
             $baby->setUser($this->getUser());
             $babyManager->save($baby);
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('edit_baby', array($baby->getId()));
         }
 
         return $this->render('newBaby.html.twig', array(
@@ -76,7 +76,7 @@ class BabyController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{idBaby}", name="edit_baby", requirements={"idBaby": "\d+"})
+     * @Route("/baby/edit/{idBaby}", name="edit_baby", requirements={"idBaby": "\d+"})
      *
      * @param Request     $request
      * @param int         $idBaby
@@ -110,7 +110,7 @@ class BabyController extends AbstractController
     }
 
     /**
-     * @Route("/remove/{idBaby}", name="remove_baby", requirements={"idBaby": "\d+"})
+     * @Route("/baby/remove/{idBaby}", name="remove_baby", requirements={"idBaby": "\d+"})
      *
      * @param int idBaby
      *

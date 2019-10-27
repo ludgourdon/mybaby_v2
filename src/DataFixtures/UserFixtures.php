@@ -23,7 +23,7 @@ class UserFixtures extends Fixture
         $user->setRoles(array('ROLE_ADMIN'));
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
-            'the_new_password'
+            'toto'
         ));
 
         $manager->persist($user);

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -33,6 +35,50 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Baby", mappedBy="user")
+     */
+    private $babies;
+
+    public function __construct()
+    {
+        $this->babies = new ArrayCollection();
+    }
+
+    /**
+     * Add baby
+     *
+     * @param Baby $baby
+     *
+     * @return User
+     */
+    public function addBaby(Baby $baby)
+    {
+        $this->babies[] = $baby;
+
+        return $this;
+    }
+
+    /**
+     * Remove baby
+     *
+     * @param Baby $baby
+     */
+    public function removeBaby(Baby $baby)
+    {
+        $this->babies->removeElement($baby);
+    }
+
+    /**
+     * Get babies
+     *
+     * @return Collection
+     */
+    public function getBabies()
+    {
+        return $this->babies;
+    }
 
     public function getId(): ?int
     {
