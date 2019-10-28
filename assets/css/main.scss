@@ -20,19 +20,19 @@ img {
  position: static;
 }
 
-@font-face {
-    font-family: mellony sans-serif;
-    src: url("/assets/fonts/mellony_dry_brush.ttf");
-}
+//@font-face {
+//    font-family: mellony sans-serif;
+//    src: url("/assets/fonts/mellony_dry_brush.ttf");
+//}
 
 #website-title {
-    font-family: mellony sans-serif;
+    font-family: sans-serif;
     font-size: x-large;
     color: lightskyblue;
 }
 
 .content-title {
-    font-family: mellony sans-serif;
+    font-family: sans-serif;
 }
 
 .center {

@@ -71,10 +71,12 @@ Encore
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
 
-    .addEntry('app', './assets/js/main.js')
+    // .addEntry('app', './assets/js/app.js')
+    .addEntry('main', './assets/js/main.js')
     .addEntry('photos', './assets/js/photos.js')
     .addEntry('dropzone', './assets/js/dropzone.min.js')
     .addEntry('fancybox', './assets/js/jquery.fancybox.min.js')
+    .addEntry('form-magic', './assets/js/form-magic.js')
     .addStyleEntry('global', './assets/css/global.scss')
     .addStyleEntry('dropzone-stylesheet', './assets/css/dropzone.min.css')
     .addStyleEntry('fancybox-stylesheet', './assets/css/jquery.fancybox.min.css')
