@@ -20,15 +20,17 @@ img {
  position: static;
 }
 
-//@font-face {
-//    font-family: mellony sans-serif;
-//    src: url("/assets/fonts/mellony_dry_brush.ttf");
-//}
+@font-face {
+    font-family: mellony sans-serif;
+    //src: url('/build/fonts/mellony_dry_brush.otf');
+    src: url('/build/fonts/mellony_dry_brush.ttf') format('truetype');
+}
 
 #website-title {
-    font-family: sans-serif;
-    font-size: x-large;
-    color: lightskyblue;
+  font-family: mellony sans-serif;
+  font-size: x-large;
+  color: lightskyblue;
+  text-align: center;
 }
 
 .content-title {

@@ -2,8 +2,10 @@ import Vue from 'vue';
 
 new Vue({
     delimiters: ['${', '}'],
-    el: '#app-6',
+    el: '#app',
     data: {
-        message: 'Hello Vue!'
+        lastName: null,
+        firstName: null,
+        nickName: null,
     }
 })

@@ -1,12 +1,17 @@
 {% extends "base.html.twig" %}
 {% block content %}
-    <div class="col-sm-6">
+    <div class="row" id="app">
+    <div class="col-sm">
         <h2>Mon bébé</h2>
         {{ form_start(form) }}
+        {{ form_label(form.firstName) }}
+        {{ form_widget(form.firstName,{'attr':{'v-model':'firstName'}}) }}
+        {{ form_label(form.lastName) }}
+        {{ form_widget(form.lastName,{'attr':{'v-model':'lastName'}}) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm">
         {% if baby.id is not empty %}
             {% if baby.photos|length > 0 %}
                 <div class ="row">
@@ -22,10 +27,16 @@
                 </div>           
             {% endif %}
              {% include 'uploadPhotoBaby.html.twig' %}
+        {% else %}
+            <p>Je m'appelle ${ firstName } ${ lastName }</p>
         {% endif %}
     </div>
-    <div id="app-6">
-        <p>${ message }</p>
-        <input type="text" v-model="message">
     </div>
+{#    <div id="app-6">#}
+{#        <p>${ message }</p>#}
+{#        <input type="text" v-model="message">#}
+{#    </div>#}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('form-magic') }}
 {% endblock %}

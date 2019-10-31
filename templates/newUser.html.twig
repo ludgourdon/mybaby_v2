@@ -1,22 +1,33 @@
 {% extends'base.html.twig' %}
 {% block content %}
-    <div class="jumbotron">
-        <p>
-            Remplissez en ligne et créer le livre papier* des plus beaux souvenirs de votre bébé
-            dans un espace paramétrable, sécurisé et confidentiel.
-        </p>
-        <p>
-            Comment ça fonctionne ?
-        </p>
-        <ul>
-            <li>Renseignez les moments forts des premières années de votre bébé.</li>
-            <li>Choisissez le visuel qui vous plaît.</li>
-            <li>Vous pouvez consulter et partager l'album en ligne de votre bébé.</li>
-            <li>Enfin vous pouvez commander le livre papier de votre bébé.</li>
-        </ul>
-        <i>*Le livre papier sera imprimé avec du papier recyclé et une partie de la somme à régler sera reversée à l'asso
-            xxx qui apporte de la joie aux enfants malades
-        </i>
+    <div style="padding-top:10px;" class="row">
+        <div class="col-sm">
+            <img style="max-width:500px;" src="{{ asset('build/images/album-demo.jpg') }}" alt="Album bebe exemple"/>
+        </div>
+        <div class="col-sm">
+{#            <div class="jumbotron">#}
+                <h2 style="margin-bottom: 40px;" >
+                    Créer le livre papier* des plus beaux souvenirs de votre bébé
+                    dans un espace paramétrable, sécurisé et confidentiel.
+                </h2>
+                <hr style="margin-bottom: 40px; border-top: dotted 6px lightskyblue; width:280px;" />
+                <h2>
+                    Mybaby est une initiative solidaire et écologique.
+                </h2>
+                <p>
+                    Comment ça fonctionne ?
+                </p>
+                <ul>
+                    <li>Renseignez les moments forts des premières années de votre bébé.</li>
+                    <li>Choisissez le visuel qui vous plaît.</li>
+                    <li>Vous pouvez consulter et partager l'album en ligne de votre bébé.</li>
+                    <li>Enfin vous pouvez commander le livre papier de votre bébé.</li>
+                </ul>
+                <i>*Le livre papier sera imprimé avec du papier recyclé et une partie de la somme à régler sera reversée à l'asso
+                    xxx qui apporte de la joie aux enfants malades
+                </i>
+            </div>
+{#        </div>#}
     </div>
     <a class="btn btn-primary btn-lg" href="#" role="button">Créer un compte »</a>
     <a class="btn btn-primary btn-lg" href="{{ path('app_login') }}" role="button">Se connecter »</a>

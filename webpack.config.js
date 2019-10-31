@@ -71,18 +71,20 @@ Encore
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
 
-    // .addEntry('app', './assets/js/app.js')
+    .addEntry('app', './assets/js/app.js')
     .addEntry('main', './assets/js/main.js')
     .addEntry('photos', './assets/js/photos.js')
     .addEntry('dropzone', './assets/js/dropzone.min.js')
     .addEntry('fancybox', './assets/js/jquery.fancybox.min.js')
     .addEntry('form-magic', './assets/js/form-magic.js')
     .addStyleEntry('global', './assets/css/global.scss')
+    .addStyleEntry('app-stylesheet', './assets/css/app.css')
     .addStyleEntry('dropzone-stylesheet', './assets/css/dropzone.min.css')
     .addStyleEntry('fancybox-stylesheet', './assets/css/jquery.fancybox.min.css')
     .addStyleEntry('nav', './assets/css/nav.css')
     .addPlugin(new CopyWebpackPlugin([
-        { from: './assets/images', to: 'images' }
+        { from: './assets/images', to: 'images' },
+        { from: './assets/fonts', to: 'fonts' }
     ]))
 ;
 
