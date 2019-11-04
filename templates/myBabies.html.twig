@@ -7,7 +7,7 @@
             {% for baby in babies %}
                 <a href="{{ path('baby', {'idBaby': baby.id}) }}" class="list-group-item">
                   <h4 class="list-group-item-heading">{{baby.lastName}} {{baby.firstName}}</h4>
-                  <p class="list-group-item-text">bébé chou</p>
+                  <p class="list-group-item-text"> {{baby.nickName}}</p>
                 </a>
             {% endfor %}
         </div>
