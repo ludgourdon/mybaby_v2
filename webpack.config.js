@@ -75,6 +75,7 @@ Encore
     .addEntry('main', './assets/js/main.js')
     .addEntry('photos', './assets/js/photos.js')
     .addEntry('dropzone', './assets/js/dropzone.min.js')
+    .addEntry('dropzone-amd', './assets/js/dropzone.min.js')
     .addEntry('fancybox', './assets/js/jquery.fancybox.min.js')
     .addEntry('form-magic', './assets/js/form-magic.js')
     .addStyleEntry('global', './assets/css/global.scss')

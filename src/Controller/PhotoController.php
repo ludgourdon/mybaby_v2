@@ -1,6 +1,9 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Baby;
+use App\Manager\BabyManager;
+use App\Manager\PhotoManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -102,14 +105,19 @@ class PhotoController extends AbstractController
             'photos' => $photos
         ));
     }
-    
+
     /**
      * @Route("/ajax/image/send/baby", name="ajax_image_send_baby", requirements={"idBaby": "\d+"})
-     * 
+     *
      * @param Request $request
-     * @param int $idBaby 
+     * @param $idBaby
+     * @param BabyManager $babyManager
+     * @param PhotoManager $photoManager
+     * @return JsonResponse
+     *
+     * @throws \Exception
      */
-    public function ajaxImageSendBabyAction(Request $request, $idBaby)
+    public function ajaxImageSendBabyAction(Request $request, $idBaby, BabyManager $babyManager, PhotoManager $photoManager)
     {
         /** @var File $media */
         $media = $request->files->get('file');
@@ -118,12 +126,10 @@ class PhotoController extends AbstractController
         $photo->setPath($media->getPathName());
         $photo->setImage($media->getClientOriginalName());
         $photo->setImageSize($media->getSize());
-       
-        $babyManager = $this->get('mybaby_main.babymanager');
+
+        /** @var Baby $baby */
         $baby = $babyManager->find($idBaby);
         $photo->setBaby($baby);
-        
-        $photoManager = $this->get('mybaby_main.photomanager');
         $photoManager->save($photo);
 
         return new JsonResponse(array('success' => true));

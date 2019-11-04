@@ -6,7 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use App\Entity\Event;
+use App\Entity\Baby;
+use App\Entity\Family;
 
 /**
  * Photo
@@ -150,12 +151,14 @@ class Photo
     {
         return $this->date;
     }
-    
-/**
- * @param File|UploadedFile $image
- * 
- * @return $this
- */
+
+    /**
+     * @param File|null $image
+     *
+     * @return $this
+     *
+     * @throws \Exception
+     */
     public function setImageFile(File $image = null)
     {
         $this->imageFile = $image;
@@ -277,11 +280,11 @@ class Photo
     /**
      * Set family
      *
-     * @param \App\Entity\Family $family
+     * @param Family $family
      *
      * @return Photo
      */
-    public function setFamily(\App\Entity\Family $family = null)
+    public function setFamily(Family $family = null)
     {
         $this->family = $family;
 
@@ -291,7 +294,7 @@ class Photo
     /**
      * Get family
      *
-     * @return \App\Entity\Family
+     * @return Family
      */
     public function getFamily()
     {
@@ -301,11 +304,11 @@ class Photo
     /**
      * Set baby
      *
-     * @param \App\Entity\Baby $baby
+     * @param Baby $baby
      *
      * @return Photo
      */
-    public function setBaby(\App\Entity\Baby $baby = null)
+    public function setBaby(Baby $baby = null)
     {
         $this->baby = $baby;
 
@@ -315,7 +318,7 @@ class Photo
     /**
      * Get baby
      *
-     * @return \App\Entity\Baby
+     * @return Baby
      */
     public function getBaby()
     {
