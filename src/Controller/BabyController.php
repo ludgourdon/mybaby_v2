@@ -1,8 +1,11 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Birth;
 use App\Entity\User;
+use App\Form\BirthType;
 use App\Manager\BabyManager;
+use App\Manager\BirthManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Baby;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -129,5 +132,41 @@ class BabyController extends AbstractController
         $babyManager->removeBaby($baby);
 
         return $this->redirectToRoute('index');
+    }
+
+    /**
+     * @Route("/baby/{idBaby}/birth", name="birth_baby", requirements={"idBaby": "\d+"})
+     *
+     * @param Request     $request
+     * @param int         $idBaby
+     * @param BirthManager $birthManager
+     *
+     * @return Response|RedirectResponse
+     */
+    public function birthBabyAction(Request $request, $idBaby, BirthManager $birthManager, BabyManager $babyManager)
+    {
+        $user = $this->getUser();
+
+        if ($user === null) {
+            return $this->redirectToRoute('login');
+        }
+
+        $birth = new Birth();
+        $form = $this->createForm(BirthType::class, $birth);
+        $form->handleRequest($request);
+        $baby = $babyManager->find($idBaby);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $birth = $form->getData();
+            $birth->setBaby($baby);
+            $birthManager->save($birth);
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('birth.html.twig', array(
+            'form' => $form->createView(),
+            'birth' => $birth,
+        ));
     }
 }

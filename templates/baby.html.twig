@@ -2,28 +2,81 @@
 {% block content %}
     {% if baby is not empty %}
         <div class="row">
-            <div class="col-sm-4">
-                {% if baby.photos|length > 0 %}
-                    {% set noProfile = true %}
-                    {% for photo in baby.photos %}
-                        {% if photo.profilePicture == true %}
-                            {% set noProfile = false %}
-                            <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(photo, 'imageFile')| imagine_filter('my_widen_filter') }}"/>
-                        {% endif %}
-                    {% endfor %}
-                    {% if noProfile == true %}
-                        <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(baby.photos|first, 'imageFile')| imagine_filter('my_widen_filter') }}"/>
-                    {% endif %}
-                    {% else %}    
-                    <img src="{{ asset('build/images/baby.jpg') }}" alt="My baby"/>
-                {% endif %}
-            </div>
-            <div class="col-sm-4">
-                <p>{{baby.firstname}} 
+{#            <div class="col-sm-4">#}
+{#                {% if baby.photos|length > 0 %}#}
+{#                    {% set noProfile = true %}#}
+{#                    {% for photo in baby.photos %}#}
+{#                        {% if photo.profilePicture == true %}#}
+{#                            {% set noProfile = false %}#}
+{#                            <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(photo, 'imageFile')| imagine_filter('my_widen_filter') }}"/>#}
+{#                        {% endif %}#}
+{#                    {% endfor %}#}
+{#                    {% if noProfile == true %}#}
+{#                        <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(baby.photos|first, 'imageFile')| imagine_filter('my_widen_filter') }}"/>#}
+{#                    {% endif %}#}
+{#                    {% else %}#}
+{#                {% endif %}#}
+{#            </div>#}
+            <div class="col-sm-12">
+                <h3>
+                    <span style="height: 80px;
+                            width: 80px;
+                            display: inline-block;
+                            vertical-align: middle;
+                            border-radius: 50%;
+                            background:url({{ asset('build/images/baby-icone.jpg')}}) no-repeat; background-size:80px;"></span>
+                    {{baby.firstname}}
                     {% if baby.nickName is not empty%}
                     "{{baby.nickName}}"
                     {%endif%}
-                    {{baby.lastname}}</p>
+                    {{baby.lastname}} | LES ALBUMS :
+                </h3>
+            </div>
+            <div class="col-sm-3 my-auto">
+                <h4>
+                    <span style="height: 60px;
+                            width: 60px;
+                            display: inline-block;
+                            vertical-align: middle;
+                            border-radius: 50%;
+                            background-image:url({{ asset('build/images/bibi.png')}});
+                            background-size:50px;
+                            background-color: lightskyblue;
+                            background-repeat: no-repeat;
+                            background-position: center;"></span>
+                    Naissance
+                </h4>
+            </div>
+            <div class="col-sm-6 my-auto">
+                <div class="progress" style="height:40px;">
+                    <div class="progress-bar" role="progressbar" style="background-color: lightskyblue;width:25%;font-size:1rem;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                </div>
+            </div>
+            <div class="col-sm-3 my-auto">
+                <a href="{{ path('birth_baby', {'idBaby':baby.id}) }}">Voir</a> | Imprimer
+            </div>
+            <div class="col-sm-3 my-auto">
+                <h4>
+                    <span style="height: 60px;
+                            width: 60px;
+                            display: inline-block;
+                            vertical-align: middle;
+                            border-radius: 50%;
+                            background-image:url({{ asset('build/images/poussette.png')}});
+                            background-size:50px;
+                            background-color: lightskyblue;
+                            background-repeat: no-repeat;
+                            background-position: center;"></span>
+                    Retour à la maison
+                </h4>
+            </div>
+            <div class="col-sm-6 my-auto">
+                <div class="progress" style="height:40px;">
+                    <div class="progress-bar" role="progressbar" style="background-color: lightskyblue;width:0%;font-size:1rem;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+                </div>
+            </div>
+            <div class="col-sm-3 my-auto">
+                Voir | Imprimer
             </div>
         </div>
         <a class="btn btn-link btn-sm" href="{{ path('edit_baby', {'idBaby': baby.id})}}" role="button">Modifier le profil »</a>

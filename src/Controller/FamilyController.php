@@ -1,6 +1,9 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Baby;
+use App\Manager\BabyManager;
+use App\Manager\FamilyManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\FamilyType;
@@ -21,22 +24,20 @@ class FamilyController extends AbstractController
      * 
      * @return type
      */
-    public function newParentAction(Request $request, $idBaby)
+    public function newParentAction(Request $request, $idBaby, BabyManager $babyManager, FamilyManager $familyManager)
     {
         $user = $this->getUser();
         
         if ($user === null) {
-            return $this->redirectToRoute('fos_user_security_login');
+            return $this->redirectToRoute('login');
         }
-        
-        $babyManager = $this->get('mybaby_main.babymanager');
         
         if (!$babyManager->hasAccessBaby($idBaby, $user)) {
             throw new Exception('Accès interdit.');
         }
-        
+
+        /** @var Baby $baby */
         $baby = $babyManager->find($idBaby);
-        $familyManager = $this->get('mybaby_main.familymanager');
         $family = new Family();
         $form = $this->createForm(FamilyType::class, $family, 
             array(
@@ -57,7 +58,7 @@ class FamilyController extends AbstractController
             return $this->redirectToRoute('index');
         }
         
-        return $this->render('MybabyMainBundle:Default:newParent.html.twig', array(
+        return $this->render('newParent.html.twig', array(
             'form' => $form->createView(),
         ));
     }

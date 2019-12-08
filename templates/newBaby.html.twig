@@ -1,38 +1,36 @@
 {% extends "base.html.twig" %}
 {% block content %}
     <div class="row" id="app">
-    <div class="col-sm">
-        <h2>Mon bébé</h2>
-        {{ form_start(form) }}
-            {{ form_row(form.firstName,{'attr':{'v-model':'firstName'}}) }}
-            {{ form_row(form.lastName,{'attr':{'v-model':'lastName'}}) }}
-            {{ form_widget(form) }}
-        {{ form_end(form) }}
-    </div>
-    <div class="col-sm">
-        {% if baby.id is not empty %}
-            {% if baby.photos|length > 0 %}
-                <div class ="row">
-                {% for photo in baby.photos %}
-                    {% if photo.profilePicture == true %}
-                        <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(photo, 'imageFile')| imagine_filter('my_widen_filter') }}"/>
-                    {% else %}
-                        <div class="col-sm-6">
-                            <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(photo, 'imageFile')| imagine_filter('my_thumb') }}"/>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-                </div>
+        <div class="col-sm">
+            <h2>Mon bébé</h2>
+            {{ form_start(form) }}
+                {{ form_row(form.firstName,{'attr':{'v-model':'firstName'}}) }}
+                {{ form_row(form.lastName,{'attr':{'v-model':'lastName'}}) }}
+                {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+        <div class="col-sm">
+            {% if baby.id is not empty %}
+                {% if baby.photos|length > 0 %}
+                    <div class ="row">
+                    {% for photo in baby.photos %}
+                        {% if photo.profilePicture == true %}
+                            <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(photo, 'imageFile')| imagine_filter('my_widen_filter') }}"/>
+                        {% else %}
+                            <div class="col-sm-6">
+                                <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(photo, 'imageFile')| imagine_filter('my_thumb') }}"/>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+                 {% include 'uploadPhotoBaby.html.twig' %}
             {% endif %}
-             {% include 'uploadPhotoBaby.html.twig' %}
-{#        {% else %}#}
-
-        {% endif %}
-        <p>Je m'appelle ${ firstName } ${ lastName }</p>
-    </div>
+            <p>Je m'appelle ${ firstName } ${ lastName }</p>
+        </div>
     </div>
 {% endblock %}
 {% block javascripts %}
-    {{ encore_entry_script_tags('form-magic') }}
+    {{ encore_entry_script_tags('baby') }}
     {{ encore_entry_script_tags('photos') }}
 {% endblock %}

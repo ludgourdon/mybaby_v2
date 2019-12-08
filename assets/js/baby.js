@@ -9,4 +9,4 @@ new Vue({
         firstName: firstName,
         nickName: null,
     }
-})
+});

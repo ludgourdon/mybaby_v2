@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+{% block content %}
+<div class="row" id="app">
+    <div class="col-sm">
+        <h2>Naissance</h2>
+        {{ form_start(form) }}
+        {{ form_row(form.birthDate,{'attr':{'v-model':'birthDate'}}) }}
+        {{ form_row(form.birthPlace,{'attr':{'v-model':'birthPlace'}}) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+        <datepicker v-model="birthDate" name="uniquename"></datepicker>
+    </div>
+    <div class="col-sm">
+        <p>Je suis né le ${ birthDate } à ${ birthPlace }</p>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('birth') }}
+    {{ encore_entry_script_tags('photos') }}
+{% endblock %}
+
