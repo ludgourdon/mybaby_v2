@@ -41,9 +41,30 @@ class User implements UserInterface
      */
     private $babies;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
+//
+//    /**
+//     * @ORM\Column(type="string", nullable=true)
+//     */
+//    private $lastName;
+//
+//    /**
+//     * @ORM\Column(type="string", nullable=true)
+//     */
+//    private $firstName;
+//
+//    /**
+//     * @ORM\Column(type="datetime", nullable=true)
+//     */
+//    private $birthdate;
+
     public function __construct()
     {
         $this->babies = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -157,4 +178,6 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+
 }
