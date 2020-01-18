@@ -1,17 +1,27 @@
 {% extends "base.html.twig" %}
+
+{% form_theme form _self %}
+
+{%- block date_widget  -%}
+    {% if widget == 'single_text' %}
+        <datepicker v-model="birthDate" name="birthDate" id="birthDate" class="form-control"></datepicker>
+    {%- else -%}
+
+    {%- endif -%}
+{%- endblock date_widget -%}
+
 {% block content %}
 <div class="row" id="app">
-    <div class="col-sm">
+    <div class="col-sm-4">
         <h2>Naissance</h2>
         {{ form_start(form) }}
         {{ form_row(form.birthDate,{'attr':{'v-model':'birthDate'}}) }}
         {{ form_row(form.birthPlace,{'attr':{'v-model':'birthPlace'}}) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
-        <datepicker v-model="birthDate" name="uniquename"></datepicker>
     </div>
     <div class="col-sm">
-        <p>Je suis né le ${ birthDate } à ${ birthPlace }</p>
+        <p>Je suis né le ${ birthDate.getDate()+' '+months[birthDate.getMonth()]+' '+birthDate.getFullYear() } à ${ birthPlace }</p>
     </div>
 </div>
 {% endblock %}

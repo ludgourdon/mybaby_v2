@@ -1,12 +1,12 @@
 {% extends'base.html.twig' %}
 {% block content %}
-    <div style="padding-top:10px;" class="row">
+    <div class="container">
+    <div style="padding-top:10px; margin-bottom:40px;" class="row">
         <div class="col-sm">
             <img style="max-width:500px;" src="{{ asset('build/images/album-demo.jpg') }}" alt="Album bebe exemple"/>
         </div>
         <div class="col-sm">
-{#            <div class="jumbotron">#}
-                <h2 style="margin-bottom: 40px;" >
+                <h2 style="margin-bottom:60px;" >
                     Créez le livre papier* des plus beaux souvenirs de votre bébé et <span style="font-weight: bold; color: deeppink;">contribuez à aider un enfant malade*</span>
 {#                    dans un espace paramétrable, sécurisé et confidentiel. #}
                 </h2>
@@ -14,21 +14,27 @@
                 <h2>
                     Mybaby est une initiative solidaire et écologique.
                 </h2>
-                <p>
-                    Comment ça fonctionne ?
-                </p>
-                <ul>
-                    <li>Renseignez les moments forts des premières années de votre bébé.</li>
-                    <li>Choisissez le visuel qui vous plaît.</li>
-                    <li>Vous pouvez consulter et partager l'album en ligne de votre bébé.</li>
-                    <li>Enfin vous pouvez commander le livre papier de votre bébé.</li>
-                </ul>
-                <i>*Le livre papier sera imprimé avec du papier recyclé et une partie de la somme à régler sera reversée à l'asso
-                    xxx qui apporte de la joie aux enfants malades
-                </i>
             </div>
-{#        </div>#}
     </div>
+    </div>
+{#    <div class="container-fluid" style="text-align:center;background:#b3b3b3;">#}
+        <div class="row" style="text-align:center;background:#b3b3b3;">
+    <div class="col-sm">
+            <h1 style="font-weight:200;margin-bottom: 40px;">
+                Comment ça fonctionne ?
+            </h1>
+            <ul>
+                <li>Renseignez les moments forts des premières années de votre bébé.</li>
+                <li>Choisissez le visuel qui vous plaît.</li>
+                <li>Vous pouvez consulter et partager l'album en ligne de votre bébé.</li>
+                <li>Enfin vous pouvez commander le livre papier de votre bébé.</li>
+            </ul>
+            <i>*Le livre papier sera imprimé avec du papier recyclé et une partie de la somme à régler sera reversée à l'asso
+                xxx qui apporte de la joie aux enfants malades
+            </i>
+        </div>
+        </div>        {#        </div>#}
+{#    </div>#}
 {#    <a class="btn btn-primary btn-lg" href="#" role="button">Créer un compte »</a>#}
 {#    <a class="btn btn-primary btn-lg" href="{{ path('app_login') }}" role="button">Se connecter »</a>#}
 {% endblock %}

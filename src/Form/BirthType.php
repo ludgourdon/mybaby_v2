@@ -15,7 +15,6 @@ class BirthType extends AbstractType
         $builder->add('birthDate', DateType::class, [
             'widget' => 'single_text',
             'html5' => false,
-            'attr' => ['class' => 'js-datepickerr'],
         ]);
 
         $builder
