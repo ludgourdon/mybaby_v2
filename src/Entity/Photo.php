@@ -35,7 +35,7 @@ class Photo
      */
     private $image;
     
-    /** @Vich\UploadableField(mapping="photo", fileNameProperty="image", size="imageSize")
+    /** @Vich\UploadableField(mapping="photos", fileNameProperty="image", size="imageSize")
      * 
      * @var File
      */

@@ -1,5 +1,6 @@
 {% block content %}
     <h2>Télécharger une photo</h2>
-    <div class="dropzone my-dropzone" id="form_snippet_image" data-action="{{path('ajax_image_send_baby', {'idBaby': baby.id})}}">
+    {{ babyId}}
+    <div class="dropzone my-dropzone" id="form_snippet_image" data-action="{{url('ajax_image_send_baby', {'idBaby': babyId})}}">
     </div>
 {% endblock %}

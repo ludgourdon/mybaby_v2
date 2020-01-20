@@ -8,23 +8,22 @@
                 {{ form_row(form.lastName,{'attr':{'v-model':'lastName'}}) }}
                 {{ form_widget(form) }}
             {{ form_end(form) }}
+            {% include 'uploadPhotoBaby.html.twig' with {'babyId': baby.id} %}
         </div>
         <div class="col-sm">
-            {% if baby.id is not empty %}
-                {% if baby.photos|length > 0 %}
-                    <div class ="row">
+            {% if baby.id is not empty and baby.photos|length > 0 %}
+                {% dump( baby.photos) %}
+                <div class ="row">
                     {% for photo in baby.photos %}
-                        {% if photo.profilePicture == true %}
-                            <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(photo, 'imageFile')| imagine_filter('my_widen_filter') }}"/>
-                        {% else %}
+{#                        {% if photo.profilePicture == true %}#}
+{#                            <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(photo, 'imageFile')| imagine_filter('my_widen_filter') }}"/>#}
+{#                        {% else %}#}
                             <div class="col-sm-6">
-                                <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(photo, 'imageFile')| imagine_filter('my_thumb') }}"/>
+                                <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(photo, 'imageFile') }}"/>
                             </div>
-                        {% endif %}
+{#                        {% endif %}#}
                     {% endfor %}
-                    </div>
-                {% endif %}
-                 {% include 'uploadPhotoBaby.html.twig' %}
+                </div>
             {% endif %}
             <p>Je m'appelle ${ firstName } ${ lastName }</p>
         </div>

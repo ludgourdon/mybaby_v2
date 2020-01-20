@@ -92,7 +92,7 @@ class BabyController extends AbstractController
         $user = $this->getUser();
 
         if ($user === null) {
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('app_login');
         }
 
         $baby = $babyManager->find($idBaby);

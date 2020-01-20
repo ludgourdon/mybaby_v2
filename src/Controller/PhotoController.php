@@ -107,10 +107,10 @@ class PhotoController extends AbstractController
     }
 
     /**
-     * @Route("/ajax/image/send/baby", name="ajax_image_send_baby", requirements={"idBaby": "\d+"})
+     * @Route("/ajax/image/send/baby/{idBaby}", name="ajax_image_send_baby", requirements={"idBaby": "\d+"})
      *
      * @param Request $request
-     * @param $idBaby
+     * @param int $idBaby
      * @param BabyManager $babyManager
      * @param PhotoManager $photoManager
      * @return JsonResponse
