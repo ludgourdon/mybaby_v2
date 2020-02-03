@@ -1,27 +1,37 @@
 {% extends "base.html.twig" %}
-
 {% form_theme form _self %}
 
-{%- block date_widget  -%}
-    {% if widget == 'single_text' %}
-        <datepicker v-model="birthDate" name="birthDate" id="birthDate" class="form-control"></datepicker>
-    {%- else -%}
-
-    {%- endif -%}
-{%- endblock date_widget -%}
+{#{% block _birth_birthHour_widget %}#}
+{#    <vue-timepicker hide-clear-button v-model="birthHour" name="birth[birthHour]" class="datepicker-form"></vue-timepicker>#}
+{#{% endblock %}#}
 
 {% block content %}
 <div class="row" id="app">
     <div class="col-sm-4">
         <h2>Naissance</h2>
         {{ form_start(form) }}
-        {{ form_row(form.birthDate,{'attr':{'v-model':'birthDate'}}) }}
-        {{ form_row(form.birthPlace,{'attr':{'v-model':'birthPlace'}}) }}
-        {{ form_widget(form) }}
+        {{ form_row(form.birthDate) }}
+        {{ form_row(form.birthPlace) }}
+        {{ form_row(form.birthHour)}}
+        {{ form_row(form.birthHeight)}}
         {{ form_end(form) }}
+
     </div>
     <div class="col-sm">
-        <p>Je suis né le ${ birthDate.getDate()+' '+months[birthDate.getMonth()]+' '+birthDate.getFullYear() } à ${ birthPlace }</p>
+        {% if photo is defined %}
+            <span style="height: 80px;
+                    width: 80px;
+                    display: inline-block;
+                    vertical-align: middle;
+                    border-radius: 50%;
+                    background:url({{ vich_uploader_asset(photo, 'imageFile') }}) no-repeat;
+                    background-size:150%;
+                    background-position: center;">
+                        </span>
+        {%endif%}
+        <p>Coucou, je m'apelle {{ baby.firstName }} {{ baby.lastName }}</p>
+        <p>Je suis né le ${returnDate(birthDate)} à ${returnHour(birthHour)} à ${birthPlace}</p>
+        <p>Je mesure ${birthHeight}</p>
     </div>
 </div>
 {% endblock %}
@@ -29,5 +39,7 @@
     {{ parent() }}
     {{ encore_entry_script_tags('birth') }}
     {{ encore_entry_script_tags('photos') }}
+    {{ encore_entry_script_tags('generate') }}
 {% endblock %}
+
 

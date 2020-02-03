@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Entity\Baby;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,6 +16,7 @@ class MainController extends AbstractController
      */
     public function indexAction()
     {
+        /** @var User $user */
         $user = $this->getUser();
 
         if ($user === null) {

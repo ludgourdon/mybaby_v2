@@ -18,19 +18,25 @@
 {#                {% endif %}#}
 {#            </div>#}
             <div class="col-sm-12">
-                <h3>
-                    <span style="height: 80px;
-                            width: 80px;
-                            display: inline-block;
-                            vertical-align: middle;
-                            border-radius: 50%;
-                            background:url({{ asset('build/images/baby-icone.jpg')}}) no-repeat; background-size:80px;"></span>
+                <h3 style="margin-bottom: 30px;text-align: center">
+                    {% if photo is defined %}
+                        <span style="height: 80px;
+                                width: 80px;
+                                display: inline-block;
+                                vertical-align: middle;
+                                border-radius: 50%;
+                                background:url({{ vich_uploader_asset(photo, 'imageFile') }}) no-repeat;
+                                background-size:150%;
+                                background-position: center;">
+                        </span>
+                    {%endif%}
                     {{baby.firstname}}
                     {% if baby.nickName is not empty%}
                     "{{baby.nickName}}"
                     {%endif%}
-                    {{baby.lastname}} | LES ALBUMS :
+                    {{baby.lastname}} <a class="btn btn-link btn-sm" href="{{ path('edit_baby', {'idBaby': baby.id})}}" role="button">Modifier le profil »</a>
                 </h3>
+                <h3>LES ALBUMS :</h3>
             </div>
             <div class="col-sm-3 my-auto">
                 <h4>
@@ -79,7 +85,6 @@
                 Voir | Imprimer
             </div>
         </div>
-        <a class="btn btn-link btn-sm" href="{{ path('edit_baby', {'idBaby': baby.id})}}" role="button">Modifier le profil »</a>
     {% endif %}
 {#    <a class="btn btn-link btn-sm" href="{{ path('new_parent') }}" role="button">Créer un membre de la famille »</a>#}
 {% endblock %}

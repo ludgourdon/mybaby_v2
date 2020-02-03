@@ -32,3 +32,5 @@ yarn-error.log
 .idea
 .idea/
 /docker/
+
+/public/_intellij_phpdebug_validator.php

@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\BirthType;
 use App\Manager\BabyManager;
 use App\Manager\BirthManager;
+use App\Manager\PhotoManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Baby;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -24,10 +25,14 @@ class BabyController extends AbstractController
      * @Route("/baby/{idBaby}", name="baby", requirements={"idBaby": "\d+"})
      *
      * @param int $idBaby
+     * @param BabyManager $babyManager
+     * @param PhotoManager $photoManager
      *
      * @return RedirectResponse|Response
+     *
+     * @throws \Exception
      */
-    public function babyAction($idBaby, BabyManager $babyManager)
+    public function babyAction($idBaby, BabyManager $babyManager, PhotoManager $photoManager)
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -40,9 +45,11 @@ class BabyController extends AbstractController
             throw new Exception('Accès interdit.');
         }
 
+        /** @var Baby $baby */
         $baby = $babyManager->find($idBaby);
+        $photo = $photoManager->findBabyProfilePicture($baby);
 
-        return $this->render('baby.html.twig', array('baby' => $baby));
+        return $this->render('baby.html.twig', array('baby' => $baby, 'photo' => $photo));
     }
 
     /**
@@ -124,7 +131,7 @@ class BabyController extends AbstractController
         $user = $this->getUser();
 
         if ($user === null) {
-            return $this->redirectToRoute('fos_user_security_login');
+            return $this->redirectToRoute('app_login');
         }
 
         /** @var Baby $baby */
@@ -140,21 +147,29 @@ class BabyController extends AbstractController
      * @param Request     $request
      * @param int         $idBaby
      * @param BirthManager $birthManager
+     * @param PhotoManager $photoManager
      *
      * @return Response|RedirectResponse
      */
-    public function birthBabyAction(Request $request, $idBaby, BirthManager $birthManager, BabyManager $babyManager)
+    public function birthBabyAction(Request $request, $idBaby, BirthManager $birthManager, BabyManager $babyManager, PhotoManager $photoManager)
     {
         $user = $this->getUser();
 
         if ($user === null) {
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('app_login');
         }
 
-        $birth = new Birth();
+        /** @var Baby $baby */
+        $baby = $babyManager->find($idBaby);
+        $photo = $photoManager->findBabyProfilePicture($baby);
+        $birth = $baby->getBirth();
+
+        if (!$birth instanceof Birth) {
+            $birth = new Birth();
+        }
+
         $form = $this->createForm(BirthType::class, $birth);
         $form->handleRequest($request);
-        $baby = $babyManager->find($idBaby);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $birth = $form->getData();
@@ -166,7 +181,9 @@ class BabyController extends AbstractController
 
         return $this->render('birth.html.twig', array(
             'form' => $form->createView(),
+            'baby' => $baby,
             'birth' => $birth,
+            'photo' => $photo,
         ));
     }
 }

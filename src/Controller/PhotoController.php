@@ -166,6 +166,10 @@ class PhotoController extends AbstractController
      * 
      * @param Request $request 
      * @param int $idFamily
+     *
+     * @return JsonResponse
+     *
+     * @throws \Exception
      */
     public function ajaxImageSendFamilyAction(Request $request, $idBaby, $idFamily)
     {

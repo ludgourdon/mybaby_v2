@@ -8,19 +8,16 @@
 // any CSS you require will output into a single css file (app.css in this case)
 require('../css/app.css');
 require('bootstrap/dist/js/bootstrap.bundle');
+require('vue2-timepicker/dist/VueTimepicker.css');
 
 // loads the jquery package from node_modules
 var $ = require('jquery');
 require('bootstrap');
-require('../css/main.scss');
 require('../js/jquery.fancybox.min.js');
 require('../js/dropzone.min.js');
-require('../../components/bootstrap-datepicker/js/bootstrap-datepicker');
+// require('../../components/bootstrap-datepicker/js/bootstrap-datepicker');
 
 $(document).ready(function() {
-    $('.js-datepicker').datepicker({
-        format: 'yyyy-mm-dd'
-    });
 
     $(".fancybox").fancybox({
         smallBtn : true,
@@ -33,12 +30,6 @@ $(document).ready(function() {
             'thumbs'
         ]
     });
-
-    // $('#sidebar').affix({
-    //     offset: {
-    //         top: 20
-    //     }
-    // });
 
     /* activate scrollspy menu */
     var $body   = $(document.body);

@@ -1,7 +1,9 @@
 <?php
 namespace App\Manager;
 
+use App\Entity\Baby;
 use App\Manager\BaseManager;
+use App\Repository\PhotoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Photo;
 use Doctrine\ORM\EntityRepository;
@@ -12,7 +14,6 @@ use Doctrine\ORM\EntityRepository;
 class PhotoManager extends BaseManager
 {
     /**
-     *
      * @var EntityManagerInterface
      */
     protected $em;
@@ -30,11 +31,11 @@ class PhotoManager extends BaseManager
     /**
      * Get photo repository
      * 
-     * @return EntityRepository
+     * @return PhotoRepository
      */
     public function getRepository()
     {
-        return $this->em->getRepository('MybabyMainBundle:Photo');
+        return $this->em->getRepository(Photo::class);
     }
     
     /**
@@ -53,6 +54,18 @@ class PhotoManager extends BaseManager
     public function findByEvent($id)
     {
         return $this->getRepository()->findBy(array('event' => $id));
+    }
+
+    /**
+     * @param Baby $baby
+     *
+     * @return mixed
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findBabyProfilePicture(Baby $baby)
+    {
+        return $this->getRepository()->findBabyProfilePicture($baby)->getOneOrNullResult();
     }
 }
 ?>
