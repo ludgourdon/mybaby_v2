@@ -150,6 +150,8 @@ class BabyController extends AbstractController
      * @param PhotoManager $photoManager
      *
      * @return Response|RedirectResponse
+     *
+     * @throws \Exception
      */
     public function birthBabyAction(Request $request, $idBaby, BirthManager $birthManager, BabyManager $babyManager, PhotoManager $photoManager)
     {
@@ -170,7 +172,7 @@ class BabyController extends AbstractController
 
         $form = $this->createForm(BirthType::class, $birth);
         $form->handleRequest($request);
-
+        //TODO réfléchir gestion de la soumission du form lorsque l'image est générée.
         if ($form->isSubmitted() && $form->isValid()) {
             $birth = $form->getData();
             $birth->setBaby($baby);

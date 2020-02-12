@@ -14,10 +14,11 @@
         {{ form_row(form.birthPlace) }}
         {{ form_row(form.birthHour)}}
         {{ form_row(form.birthHeight)}}
+        {{ form_row(form.birthWeight)}}
         {{ form_end(form) }}
 
     </div>
-    <div class="col-sm">
+    <div class="col-sm card">
         {% if photo is defined %}
             <span style="height: 80px;
                     width: 80px;
@@ -27,11 +28,11 @@
                     background:url({{ vich_uploader_asset(photo, 'imageFile') }}) no-repeat;
                     background-size:150%;
                     background-position: center;">
-                        </span>
+            </span>
         {%endif%}
         <p>Coucou, je m'apelle {{ baby.firstName }} {{ baby.lastName }}</p>
         <p>Je suis né le ${returnDate(birthDate)} à ${returnHour(birthHour)} à ${birthPlace}</p>
-        <p>Je mesure ${birthHeight}</p>
+        <p>Je mesure ${birthHeight} ${birthWeight}</p>
     </div>
 </div>
 {% endblock %}
@@ -39,7 +40,6 @@
     {{ parent() }}
     {{ encore_entry_script_tags('birth') }}
     {{ encore_entry_script_tags('photos') }}
-    {{ encore_entry_script_tags('generate') }}
 {% endblock %}
 
 

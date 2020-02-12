@@ -23,7 +23,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "puppeteer": "^2.1.0",
+        "html2canvas": "^1.0.0-rc.5",
         "vue2-timepicker": "^1.0.8",
         "vuejs-datepicker": "^1.6.2"
     }

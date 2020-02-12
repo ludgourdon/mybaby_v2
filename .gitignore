@@ -34,3 +34,4 @@ yarn-error.log
 /docker/
 
 /public/_intellij_phpdebug_validator.php
+/public/images

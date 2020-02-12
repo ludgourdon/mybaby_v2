@@ -78,7 +78,7 @@ Encore
     .addEntry('fancybox', './assets/js/jquery.fancybox.min.js')
     .addEntry('baby', './assets/js/baby.js')
     .addEntry('birth', './assets/js/birth.js')
-    .addEntry('generate', './assets/js/generate.js')
+    // .addEntry('generate', './assets/js/generate.js')
     .addStyleEntry('global', './assets/css/global.scss')
     .addStyleEntry('app-stylesheet', './assets/css/app.css')
     .addStyleEntry('dropzone-stylesheet', './assets/css/dropzone.min.css')

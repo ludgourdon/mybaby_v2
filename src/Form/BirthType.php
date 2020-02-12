@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Birth;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
@@ -58,7 +59,11 @@ class BirthType extends AbstractType
             ->add('whoImLookingLike')
             ->add('whyDoILookLike')
             ->add('comments')
-            ->add('save', SubmitType::class, array('label' => 'Continuer'));
+            ->add('save', SubmitType::class, array('label' => 'Enregistrer'))
+            ->add('generate', ButtonType::class, [
+                'label' => 'Generer image',
+                'attr' => ['v-on:click' => 'alert']
+            ]);
     }
 
     /**
