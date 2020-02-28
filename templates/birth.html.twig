@@ -18,7 +18,8 @@
         {{ form_end(form) }}
 
     </div>
-    <div class="col-sm card">
+    <div  class="col-sm">
+        <div id="babyCard">
         {% if photo is defined %}
             <span style="height: 80px;
                     width: 80px;
@@ -27,12 +28,15 @@
                     border-radius: 50%;
                     background:url({{ vich_uploader_asset(photo, 'imageFile') }}) no-repeat;
                     background-size:150%;
-                    background-position: center;">
+                    background-position: center;
+                    margin-left: auto;
+                    margin-right: auto;">
             </span>
         {%endif%}
-        <p>Coucou, je m'apelle {{ baby.firstName }} {{ baby.lastName }}</p>
+        <p>Coucou, je m'appelle {{ baby.firstName }} {{ baby.lastName }}</p>
         <p>Je suis né le ${returnDate(birthDate)} à ${returnHour(birthHour)} à ${birthPlace}</p>
         <p>Je mesure ${birthHeight} ${birthWeight}</p>
+        </div>
     </div>
 </div>
 {% endblock %}

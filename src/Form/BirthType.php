@@ -30,7 +30,8 @@ class BirthType extends AbstractType
                 'widget' => 'single_text',
                 'html5' => true,
                 'attr' => ['v-model' => 'birthDate'],
-                'label' => 'Date de naissance'
+                'label' => 'Date de naissance',
+                'required' => true
             ])
             ->add('birthPlace', TextType::class, [
                 'attr' => ['v-model' => 'birthPlace'],

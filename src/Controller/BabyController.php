@@ -7,8 +7,10 @@ use App\Form\BirthType;
 use App\Manager\BabyManager;
 use App\Manager\BirthManager;
 use App\Manager\PhotoManager;
+use Mpdf\Mpdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Baby;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\BabyType;
@@ -155,37 +157,61 @@ class BabyController extends AbstractController
      */
     public function birthBabyAction(Request $request, $idBaby, BirthManager $birthManager, BabyManager $babyManager, PhotoManager $photoManager)
     {
-        $user = $this->getUser();
+        try {
+            $user = $this->getUser();
 
-        if ($user === null) {
-            return $this->redirectToRoute('app_login');
+            if ($user === null) {
+                return $this->redirectToRoute('app_login');
+            }
+
+            /** @var Baby $baby */
+            $baby = $babyManager->find($idBaby);
+            $photo = $photoManager->findBabyProfilePicture($baby);
+            $birth = $baby->getBirth();
+
+            if (!$birth instanceof Birth) {
+                $birth = new Birth();
+            }
+
+            $form = $this->createForm(BirthType::class, $birth);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $birth = $form->getData();
+                $birth->setBaby($baby);
+                $birthManager->save($birth);
+
+                $data = $request->request->get('base64data');
+
+                if (preg_match('/^data:image\/(\w+);base64,/', $data, $type)) {
+                    $data = substr($data, strpos($data, ',') + 1);
+                    $type = strtolower($type[1]); // jpg, png, gif
+
+                    if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
+                        throw new \Exception('invalid image type');
+                    }
+
+                    $data = base64_decode($data);
+
+                    if ($data === false) {
+                        throw new \Exception('base64_decode failed');
+                    }
+                } else {
+                    throw new \Exception('did not match data URI with image data');
+                }
+
+                file_put_contents(uniqid().'.'.$type, $data);
+                return $this->redirectToRoute('index');
+            }
+
+            return $this->render('birth.html.twig', array(
+                'form' => $form->createView(),
+                'baby' => $baby,
+                'birth' => $birth,
+                'photo' => $photo,
+            ));
+        } catch(Exception $exc) {
+            throw new Exception($exc->getMessage());
         }
-
-        /** @var Baby $baby */
-        $baby = $babyManager->find($idBaby);
-        $photo = $photoManager->findBabyProfilePicture($baby);
-        $birth = $baby->getBirth();
-
-        if (!$birth instanceof Birth) {
-            $birth = new Birth();
-        }
-
-        $form = $this->createForm(BirthType::class, $birth);
-        $form->handleRequest($request);
-        //TODO réfléchir gestion de la soumission du form lorsque l'image est générée.
-        if ($form->isSubmitted() && $form->isValid()) {
-            $birth = $form->getData();
-            $birth->setBaby($baby);
-            $birthManager->save($birth);
-
-            return $this->redirectToRoute('index');
-        }
-
-        return $this->render('birth.html.twig', array(
-            'form' => $form->createView(),
-            'baby' => $baby,
-            'birth' => $birth,
-            'photo' => $photo,
-        ));
     }
 }

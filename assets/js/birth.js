@@ -11,10 +11,6 @@ let birthHeight =  $('[name="birth[birthHeight]"]').prop("defaultValue");
 let birthWeight =  $('[name="birth[birthWeight]"]').prop("defaultValue");
 let eyeColor =  $('[name="birth[eyeColor]"]').prop("defaultValue");
 
-var state = {
-    date: new Date()
-};
-
 const months = [
     'Janvier',
     'Février',
@@ -69,21 +65,28 @@ new Vue({
 $(".datepicker-form input").addClass("form-control");
 
 function generateImage(){
-     html2canvas(document.querySelector(".card")).then(canvas => {
-             // a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-             let imgData = canvas.toDataURL('image/jpeg');
-             let url = window.location.pathname;
-             console.log(url);
-             let data = {};
-             data['base64data'] = imgData;
-                $(":input").serializeArray().forEach((object) => {
-                 data[object.name] = object.value;
-             });
-             $.ajax({
-                 type: "POST",
-                 url: url,
-                 dataType: 'text',
-                 data: data
-             });
-         })
+    window.scrollTo(0,0);
+    html2canvas(document.querySelector("#babyCard"),{width:600, height:800}).then(canvas => {
+        let imgData = canvas.toDataURL('image/jpeg');
+        let data = {};
+        data['base64data'] = imgData;
+        $(":input").serializeArray().forEach((object) => {
+         data[object.name] = object.value;
+        });
+
+        $.ajax({
+         type: "POST",
+         url: window.location.pathname,
+         dataType: 'text',
+         data: data,
+        success: function(data) {
+
+        }
+        });
+    });
+    // window.scrollTo(0,0);
+    // html2canvas(document.querySelector("#babyCard"), {width:600, height:800, scrollX:0, scrollY:0}).then(canvas => {
+    //     document.body.appendChild(canvas)
+    // });
+
 }

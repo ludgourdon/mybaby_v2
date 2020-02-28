@@ -8,6 +8,7 @@
         "doctrine/doctrine-bundle": "^2.0.0",
         "eternicode/bootstrap-datepicker": "^1.9",
         "liip/imagine-bundle": "^2.2",
+        "mpdf/mpdf": "^8.0",
         "sensio/framework-extra-bundle": "^5.4",
         "symfony/asset": "4.3.*",
         "symfony/console": "4.3.*",

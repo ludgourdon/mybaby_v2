@@ -51,19 +51,19 @@ img {
     margin-top: 20px;
 }
 
-@media (min-width: 979px) {
-    #sidebar.affix-top {
-        position: static;
-        margin-top:20px;
-        width:160px;
-    }
+/*@media (min-width: 979px) {*/
+/*    #sidebar.affix-top {*/
+/*        position: static;*/
+/*        margin-top:20px;*/
+/*        width:160px;*/
+/*    }*/
 
-    #sidebar.affix {
-        position: fixed;
-        top: 88px;
-        width:160px;
-    }
-}
+/*    #sidebar.affix {*/
+/*        position: fixed;*/
+/*        top: 88px;*/
+/*        width:160px;*/
+/*    }*/
+/*}*/
 .nopadding {
     padding: 0 !important;
     margin: 0 !important;
@@ -72,4 +72,12 @@ img {
 #baby,
 #family {
     background: #f8f8f8;
+}
+
+#babyCard {
+    text-align: center;
+    width:600px;
+    height:800px;
+    background-color: #fff;
+    padding:20px;
 }
