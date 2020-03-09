@@ -78,7 +78,7 @@ class BabyController extends AbstractController
             $baby->setUser($this->getUser());
             $babyManager->save($baby);
 
-            return $this->redirectToRoute('edit_baby', array($baby->getId()));
+            return $this->redirectToRoute('edit_baby', array('idBaby' => $baby->getId()));
         }
 
         return $this->render('newBaby.html.twig', array(
@@ -181,27 +181,32 @@ class BabyController extends AbstractController
                 $birth->setBaby($baby);
                 $birthManager->save($birth);
 
-                $data = $request->request->get('base64data');
+                $data = $form->get('imgData')->getData();
 
-                if (preg_match('/^data:image\/(\w+);base64,/', $data, $type)) {
-                    $data = substr($data, strpos($data, ',') + 1);
-                    $type = strtolower($type[1]); // jpg, png, gif
+                if (!empty($data)) {
+                    if (preg_match('/^data:image\/(\w+);base64,/', $data, $type)) {
+                        $data = substr($data, strpos($data, ',') + 1);
+                        $type = strtolower($type[1]); // jpg, png, gif
 
-                    if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
-                        throw new \Exception('invalid image type');
+                        if (!in_array($type, ['jpg', 'jpeg', 'gif', 'png'])) {
+                            throw new \Exception('invalid image type');
+                        }
+
+                        $data = base64_decode($data);
+
+                        if ($data === false) {
+                            throw new \Exception('base64_decode failed');
+                        }
+                    } else {
+                        throw new \Exception('did not match data URI with image data');
                     }
 
-                    $data = base64_decode($data);
+                    $file = uniqid() . '.' . $type;
 
-                    if ($data === false) {
-                        throw new \Exception('base64_decode failed');
-                    }
-                } else {
-                    throw new \Exception('did not match data URI with image data');
+                    file_put_contents($file, $data);
+//                    return new JsonResponse(['babyId' => $idBaby, 'filePath' => $file]);
+                    return $this->forward('App\Controller\BabyController::shareBaby', ['idBaby' => $idBaby, 'filePath' => $file]);
                 }
-
-                file_put_contents(uniqid().'.'.$type, $data);
-                return $this->redirectToRoute('index');
             }
 
             return $this->render('birth.html.twig', array(
@@ -213,5 +218,20 @@ class BabyController extends AbstractController
         } catch(Exception $exc) {
             throw new Exception($exc->getMessage());
         }
+    }
+
+
+    /**
+     * @Route("/baby/{idBaby}/share", name="share_baby", requirements={"idBaby": "\d+"})
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function shareBaby(Request $request, $idBaby, $filePath)
+    {
+        return $this->render('shareBaby.html.twig', array(
+            'filePath' => $filePath,
+        ));
     }
 }

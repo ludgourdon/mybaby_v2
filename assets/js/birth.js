@@ -68,21 +68,24 @@ function generateImage(){
     window.scrollTo(0,0);
     html2canvas(document.querySelector("#babyCard"),{width:600, height:800}).then(canvas => {
         let imgData = canvas.toDataURL('image/jpeg');
-        let data = {};
-        data['base64data'] = imgData;
-        $(":input").serializeArray().forEach((object) => {
-         data[object.name] = object.value;
-        });
+        $('[name="birth[imgData]"]').val(imgData);
+        // let data = {};
+        // data['base64data'] = imgData;
+        // $(":input").serializeArray().forEach((object) => {
+        //  data[object.name] = object.value;
+        // });
+        //
+        // $.ajax({
+        //     type: "POST",
+        //     url: window.location.pathname,
+        //     dataType: 'json',
+        //     data: data,
+        //     success: function(data) {
+        //         window.location = '/baby/'+data["babyId"]+'/share?file='+data['filePath'];
+        //     }
+        // });
 
-        $.ajax({
-         type: "POST",
-         url: window.location.pathname,
-         dataType: 'text',
-         data: data,
-        success: function(data) {
-
-        }
-        });
+        $('[name="birth"]').submit();
     });
     // window.scrollTo(0,0);
     // html2canvas(document.querySelector("#babyCard"), {width:600, height:800, scrollX:0, scrollY:0}).then(canvas => {

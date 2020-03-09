@@ -8,7 +8,9 @@
                 {{ form_row(form.lastName,{'attr':{'v-model':'lastName'}}) }}
                 {{ form_widget(form) }}
             {{ form_end(form) }}
-            {% include 'uploadPhotoBaby.html.twig' with {'babyId': baby.id} %}
+            {% if baby.id is not empty %}
+                {% include 'uploadPhotoBaby.html.twig' with {'babyId': baby.id} %}
+            {% endif %}
         </div>
         <div class="col-sm">
             {% if baby.id is not empty and baby.photos|length > 0 %}
