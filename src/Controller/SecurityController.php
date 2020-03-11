@@ -78,7 +78,6 @@ class SecurityController extends AbstractController
      */
     public function connectAction(ClientRegistry $clientRegistry)
     {
-        $toto =1;
         return $clientRegistry->getClient('google')->redirect();
     }
 
@@ -91,16 +90,22 @@ class SecurityController extends AbstractController
      */
     public function connectCheckAction(Request $request, ClientRegistry $clientRegistry)
     {
-        /** @var GoogleClient $client */
-        $client = $clientRegistry->getClient('google');
-//        $accessToken = $client->getAccessToken();
-        $user = $client->fetchUser();
+//        /** @var GoogleClient $client */
+//        $client = $clientRegistry->getClient('google');
+////        $accessToken = $client->getAccessToken();
+//        $user = $client->fetchUser();
+//        if (!$this->getUser()) {
+//            $user = new User();
+//            $user->setEmail($user->getEmail());
+//        } else {
+//            return $this->redirectToRoute('default');
+//        }
         if (!$this->getUser()) {
-            $user = new User();
-            $user->setEmail($user->getEmail());
+            return new JsonResponse(array('status' => false, 'message' => "User not found!"));
         } else {
-            return $this->redirectToRoute('default');
+            return $this->redirectToRoute('new_baby');
         }
+
 
     }
 }
