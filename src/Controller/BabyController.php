@@ -2,15 +2,14 @@
 namespace App\Controller;
 
 use App\Entity\Birth;
+use App\Entity\Photo;
 use App\Entity\User;
 use App\Form\BirthType;
 use App\Manager\BabyManager;
 use App\Manager\BirthManager;
 use App\Manager\PhotoManager;
-use Mpdf\Mpdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Baby;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\BabyType;
@@ -118,6 +117,41 @@ class BabyController extends AbstractController
         return $this->render('newBaby.html.twig', array(
             'form' => $form->createView(),
             'baby' => $baby,
+        ));
+    }
+
+    /**
+     * @Route("/baby/edit-profile-picture/{idBaby}", name="edit_profile_picture_baby", requirements={"idBaby": "\d+"})
+     *
+     * @param Request $request
+     * @param $idBaby
+     * @param BabyManager $babyManager
+     *
+     * @return RedirectResponse|Response
+     */
+    public function editBabyProfilePicture(Request $request, $idBaby, BabyManager $babyManager)
+    {
+        $user = $this->getUser();
+
+        if ($user === null) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        /** @var Baby $baby */
+        $baby = $babyManager->find($idBaby);
+        $photos = $baby->getPhotos();
+        $profilePicturePhoto = null;
+
+        /** @var Photo $photo */
+        foreach ($photos as $photo) {
+            if ($photo->getProfilePicture() === true) {
+                $profilePicturePhoto = $photo;
+            }
+        }
+
+        return $this->render('babyPhoto.html.twig', array(
+            'baby' => $baby,
+            'profilePicturePhoto' => $profilePicturePhoto,
         ));
     }
 

@@ -36,6 +36,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/create-account, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/connect/google$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        -  { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+        -  { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        -  { path: ^/baby/$, roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/profile, roles: ROLE_USER }

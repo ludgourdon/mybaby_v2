@@ -61,7 +61,7 @@ class SecurityController extends AbstractController
             $user->setPassword($password);
 
             $userManager->save($user);
-    }
+        }
 
         return $this->render('createAccount.html.twig', [
             'form' => $form->createView(),
@@ -82,7 +82,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * Facebook redirects to back here afterwards
+     * Google redirects to back here afterwards
      *
      * @Route("/connect/google/check", name="connect_google_check")
      * @param Request $request
@@ -103,7 +103,7 @@ class SecurityController extends AbstractController
         if (!$this->getUser()) {
             return new JsonResponse(array('status' => false, 'message' => "User not found!"));
         } else {
-            return $this->redirectToRoute('new_baby');
+            return $this->redirectToRoute('index');
         }
 
 

@@ -38,6 +38,6 @@ class MainController extends AbstractController
         $sentences = $baby->getSentences();
         $sentences->count();
 
-        return $this->render('index.html.twig', array('baby' => $babies->first()));
+        return $this->redirectToRoute('baby', array('idBaby' => $baby->getId()));
     }
 }

@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 
@@ -23,12 +26,14 @@ class GoogleAuthenticator extends SocialAuthenticator
     private $clientRegistry;
     private $em;
     private $router;
+    private $passwordEncoder;
 
-    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $em, RouterInterface $router)
+    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $em, RouterInterface $router, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->clientRegistry = $clientRegistry;
         $this->em = $em;
         $this->router = $router;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     public function supports(Request $request)
@@ -54,6 +59,9 @@ class GoogleAuthenticator extends SocialAuthenticator
         if (!$user) {
             $user = new User();
             $user->setEmail($googleUser->getEmail());
+            $password = $this->passwordEncoder->encodePassword($user, uniqid());
+            $user->setPassword($password);
+            $user->setRoles(array('ROLE_USER'));
             $this->em->persist($user);
             $this->em->flush();
         }
@@ -103,11 +111,11 @@ class GoogleAuthenticator extends SocialAuthenticator
      * not be authenticated. This is probably not what you want to do.
      *
      * @param Request $request
-     * @param \Symfony\Component\Security\Core\Exception\AuthenticationException $exception
+     * @param AuthenticationException $exception
      *
      * @return \Symfony\Component\HttpFoundation\Response|null
      */
-    public function onAuthenticationFailure(Request $request, \Symfony\Component\Security\Core\Exception\AuthenticationException $exception)
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         // TODO: Implement onAuthenticationFailure() method.
     }
@@ -122,12 +130,12 @@ class GoogleAuthenticator extends SocialAuthenticator
      * will be authenticated. This makes sense, for example, with an API.
      *
      * @param Request $request
-     * @param \Symfony\Component\Security\Core\Authentication\Token\TokenInterface $token
+     * @param TokenInterface $token
      * @param string $providerKey The provider (i.e. firewall) key
      *
      * @return Response
      */
-    public function onAuthenticationSuccess(Request $request, \Symfony\Component\Security\Core\Authentication\Token\TokenInterface $token, $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
 //        return new RedirectResponse($this->router->generate('new_baby'));
     }

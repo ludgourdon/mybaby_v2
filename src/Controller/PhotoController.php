@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\Baby;
 use App\Manager\BabyManager;
 use App\Manager\PhotoManager;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -107,6 +108,25 @@ class PhotoController extends AbstractController
     }
 
     /**
+     * @Route("/ajax/image/send-profile/baby/{idBaby}", name="ajax_image_send_profile_baby", requirements={"idBaby": "\d+"})
+     *
+     * @param Request $request
+     * @param $idBaby
+     * @param BabyManager $babyManager
+     * @param PhotoManager $photoManager
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function ajaxImageSendProfileBabyAction(Request $request, $idBaby, BabyManager $babyManager, PhotoManager $photoManager)
+    {
+        /** @var File $media */
+        $media = $request->files->get('file');
+        $this->addImageBaby($media, $idBaby, $babyManager, $photoManager, true);
+
+        return new JsonResponse(array('success' => true));
+    }
+
+    /**
      * @Route("/ajax/image/send/baby/{idBaby}", name="ajax_image_send_baby", requirements={"idBaby": "\d+"})
      *
      * @param Request $request
@@ -121,18 +141,36 @@ class PhotoController extends AbstractController
     {
         /** @var File $media */
         $media = $request->files->get('file');
-        $photo = new Photo();
-        $photo->setImageFile($media);
-        $photo->setPath($media->getPathName());
-        $photo->setImage($media->getClientOriginalName());
-        $photo->setImageSize($media->getSize());
-
-        /** @var Baby $baby */
-        $baby = $babyManager->find($idBaby);
-        $photo->setBaby($baby);
-        $photoManager->save($photo);
+        $this->addImageBaby($media, $idBaby, $babyManager, $photoManager);
 
         return new JsonResponse(array('success' => true));
+    }
+
+    /**
+     * @param File $media
+     * @param $idBaby
+     * @param BabyManager $babyManager
+     * @param PhotoManager $photoManager
+     *
+     * @throws \Exception
+     */
+    private function addImageBaby(File $media, $idBaby, BabyManager $babyManager,  PhotoManager $photoManager, $isProfile = false)
+    {
+        try {
+            $photo = new Photo();
+            $photo->setImageFile($media);
+            $photo->setPath($media->getPathName());
+            $photo->setImage($media->getClientOriginalName());
+            $photo->setImageSize($media->getSize());
+            $photo->setProfilePicture($isProfile);
+
+            /** @var Baby $baby */
+            $baby = $babyManager->find($idBaby);
+            $photo->setBaby($baby);
+            $photoManager->save($photo);
+        } catch(Exception $exc) {
+            throw new Exception($exc->getMessage());
+        }
     }
     
     /**
@@ -141,6 +179,8 @@ class PhotoController extends AbstractController
      * @param Request $request
      * @param int $idBaby 
      * @param int $idEvent
+     *
+     * @return JsonResponse
      */
     public function ajaxImageSendEventAction(Request $request, $idBaby, $idEvent)
     {

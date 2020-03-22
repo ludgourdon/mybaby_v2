@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    {% if profilePicturePhoto is not null %}
+        <div class ="row">
+                <div class="col-sm-6 offset-md-3">
+                    <h2>Photo de profil actuelle</h2>
+                    <img class="img-responsive bottom-buffer" src="{{ vich_uploader_asset(profilePicturePhoto, 'imageFile') }}"/>
+                </div>
+        </div>
+    {% endif %}
+        <div class ="row">
+            <div class="col-sm-6 offset-md-3">
+                <h2>Télécharger une photo</h2>
+                <div class="dropzone my-dropzone" id="form_snippet_image" data-action="{{url('ajax_image_send_profile_baby', {'idBaby': baby.id})}}">
+                </div>
+            </div>
+        </div>
+    <div class ="row">
+        <div class="col-sm-6 offset-md-3">
+            <a href="{{ path('baby', {'idBaby': baby.id}) }}" class="btn btn-primary">Continuer</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('photos') }}
+{% endblock %}
